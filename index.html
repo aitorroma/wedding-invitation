@@ -532,9 +532,40 @@
         [lang="it"] .it {
             display: block;
         }
+
+        /* Estilos para el control de música */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            background: var(--color-sobre);
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <!-- Botón de control de música -->
+    <div class="music-control" id="musicControl">🎵</div>
+    
+    <!-- Audio element -->
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/aitorroma/wedding-invitation/raw/refs/heads/main/song.mp3" type="audio/mp3">
+    </audio>
+
     <div class="language-selector">
         <button class="language-btn active" data-lang="es">ES</button>
         <button class="language-btn" data-lang="it">IT</button>
@@ -638,6 +669,9 @@
             const closeBtn = document.querySelector('.close-modal');
             const languageButtons = document.querySelectorAll('.language-btn');
             const html = document.documentElement;
+            const bgMusic = document.getElementById('bgMusic');
+            const musicControl = document.getElementById('musicControl');
+            let musicStarted = false;
 
             // Función para cambiar el idioma
             function changeLanguage(lang) {
@@ -646,6 +680,19 @@
                     btn.classList.toggle('active', btn.dataset.lang === lang);
                 });
             }
+
+            // Control de música
+            function toggleMusic() {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicControl.classList.add('playing');
+                } else {
+                    bgMusic.pause();
+                    musicControl.classList.remove('playing');
+                }
+            }
+
+            musicControl.addEventListener('click', toggleMusic);
 
             // Event listeners para los botones de idioma
             languageButtons.forEach(btn => {
@@ -658,6 +705,14 @@
                 envelope.classList.add('open');
                 setTimeout(() => {
                     modal.classList.add('open');
+                    // Iniciar música cuando se abre el sobre
+                    if (!musicStarted) {
+                        bgMusic.play().catch(error => {
+                            console.log('Reproducción automática bloqueada por el navegador');
+                        });
+                        musicStarted = true;
+                        musicControl.classList.add('playing');
+                    }
                 }, 600);
             });
 
