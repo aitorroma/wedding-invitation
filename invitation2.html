@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aitor & Alessia - Boda 2025</title>
+    
+    <!-- Meta tags para redes sociales -->
+    <meta property="og:title" content="¡Nos casamos! - Aitor & Alessia">
+    <meta property="og:description" content="Te invitamos a celebrar nuestra boda. ¡Abre el sobre para descubrir los detalles!">
+    <meta property="og:image" content="https://aitorroma.github.io/notion/sobre.png">
+    <meta property="og:url" content="https://boda.aitorroma.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="¡Nos casamos! - Aitor & Alessia">
+    <meta name="twitter:description" content="Te invitamos a celebrar nuestra boda. ¡Abre el sobre para descubrir los detalles!">
+    <meta name="twitter:image" content="https://aitorroma.github.io/notion/sobre.png">
+    
+    <!-- Meta tags adicionales -->
+    <meta name="description" content="Invitación a la boda de Aitor y Alessia. ¡Acompáñanos en este día tan especial!">
+    <meta name="theme-color" content="#9cab91">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300,400,500&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-sobre: #9cab91;
+            --color-texto: #2c3e50;
+            --color-dorado: #cd9b1d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            font-family: 'Cormorant Garamond', serif;
+            perspective: 1200px;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        .envelope-container {
+            width: 95vw;
+            max-width: 800px;
+            aspect-ratio: 2/1;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+            margin: 2em;
+        }
+
+        .envelope-container.open {
+            transform: scale(0.8);
+        }
+
+        .envelope {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform-origin: center;
+        }
+
+        .front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://aitorroma.github.io/notion/sobre.png?nocache');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #fff9f5;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3em;
+            border-radius: 15px;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .modal.open .modal-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-sobre);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .close-modal:hover {
+            opacity: 1;
+        }
+
+        .close-modal::before,
+        .close-modal::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            background-color: currentColor;
+            left: 50%;
+            top: 0;
+        }
+
+        .close-modal::before {
+            transform: rotate(45deg);
+        }
+
+        .close-modal::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Contenido de la invitación */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4em;
+            color: var(--color-sobre);
+            margin-bottom: 1em;
+            font-weight: normal;
+        }
+
+        .main-text {
+            font-size: 1.4em;
+            line-height: 1.6;
+            margin-bottom: 1em;
+            color: var(--color-texto);
+        }
+
+        .date {
+            font-size: 1.6em;
+            margin-bottom: 3em;
+            font-style: italic;
+            color: var(--color-texto);
+        }
+
+        .section {
+            margin: 3em 0;
+            padding: 2em;
+            border-top: 1px solid rgba(156, 171, 145, 0.2);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: #fff9f5;
+            z-index: 1;
+        }
+
+        h3 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--color-sobre);
+            font-size: 2.5em;
+            margin-bottom: 0.8em;
+            font-weight: normal;
+            position: relative;
+            display: inline-block;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(156, 171, 145, 0.2);
+        }
+
+        .section h3 {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .section h3[data-icon]::before {
+            content: attr(data-icon);
+            font-size: 0.8em;
+            opacity: 0.9;
+        }
+
+        .section p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin: 0.8em 0;
+            color: var(--color-texto);
+        }
+
+        .section p a {
+            color: inherit;
+            text-decoration: none;
+            border-bottom: 1px dotted var(--color-sobre);
+            transition: all 0.3s ease;
+            padding-bottom: 2px;
+        }
+
+        .section p a:hover {
+            color: var(--color-sobre);
+            border-bottom: 1px solid var(--color-sobre);
+        }
+
+        .rsvp {
+            margin-top: 4em;
+            padding-top: 2em;
+            border-top: 1px solid rgba(156, 171, 145, 0.2);
+            position: relative;
+            text-align: center;
+        }
+
+        .rsvp h3 {
+            font-family: 'Great Vibes', cursive;
+            color: var(--color-sobre);
+            font-size: 2.8em;
+            margin-bottom: 1.2em;
+            display: inline-block;
+            position: relative;
+        }
+
+        .rsvp h3::before,
+        .rsvp h3::after {
+            content: '❦';
+            font-size: 0.5em;
+            color: var(--color-sobre);
+            opacity: 0.7;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .rsvp h3::before {
+            left: -2em;
+        }
+
+        .rsvp h3::after {
+            right: -2em;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            margin-top: 2em;
+        }
+
+        .rsvp a {
+            display: inline-block;
+            color: var(--color-texto);
+            text-decoration: none;
+            padding: 0.8em 2.5em;
+            border: 1px solid var(--color-sobre);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            background: linear-gradient(to right, var(--color-sobre) 50%, transparent 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+        }
+
+        .rsvp a:hover {
+            background-position: left bottom;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(156, 171, 145, 0.3);
+        }
+
+        /* Decoraciones florales */
+        .floral-decoration {
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .floral-top {
+            top: 0;
+            transform: translateY(-50%);
+        }
+
+        .floral-bottom {
+            bottom: -40px;
+        }
+
+        .floral-decoration svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .branch-path {
+            stroke: var(--color-sobre);
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.7;
+        }
+
+        .leaf {
+            fill: var(--color-sobre);
+            opacity: 0.5;
+        }
+
+        /* Indicación de clic */
+        .click-hint {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.1em;
+            color: var(--color-sobre);
+            opacity: 0;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            white-space: nowrap;
+        }
+
+        .click-hint.visible {
+            opacity: 0.8;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        .click-hint .hand {
+            display: inline-block;
+            animation: point 1.5s infinite;
+        }
+
+        @keyframes point {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .envelope-container:hover .click-hint {
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .envelope-container {
+                width: 98vw;
+                margin: 1em;
+            }
+
+            .modal-content {
+                padding: 2em;
+                width: 95%;
+            }
+
+            h1 { font-size: 3em; }
+            .main-text { font-size: 1.2em; }
+            .date { font-size: 1.3em; }
+            h3 { font-size: 2em; }
+            .section p { font-size: 1.1em; }
+
+            .section {
+                padding: 1.5em 1em;
+                margin: 2em 0;
+            }
+
+            .rsvp {
+                margin-top: 3em;
+            }
+
+            .rsvp-buttons {
+                flex-direction: column;
+                gap: 1em;
+            }
+
+            .rsvp h3::before,
+            .rsvp h3::after {
+                display: none;
+            }
+        }
+
+        /* Animación inicial */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateX(0); }
+            50% { transform: translateY(-10px) rotateX(2deg); }
+        }
+
+        .envelope-container {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .envelope-container.open {
+            animation: none;
+        }
+
+        /* Contenedor del video */
+        .couple-image {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto 2em;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .couple-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 12px solid white;
+            border-radius: 30px;
+            z-index: 2;
+            box-shadow: inset 0 0 20px rgba(156, 171, 145, 0.2);
+            pointer-events: none;
+        }
+
+        .couple-image::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 2px solid var(--color-sobre);
+            border-radius: 20px;
+            z-index: 2;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .couple-image video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            position: relative;
+            z-index: 1;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .couple-image {
+                width: 240px;
+                height: 240px;
+                margin: 1.5em auto;
+            }
+        }
+
+        /* Estilos para el selector de idioma */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1em;
+            color: var(--color-texto);
+            transition: all 0.3s ease;
+        }
+
+        .language-btn.active {
+            background: var(--color-sobre);
+            color: white;
+        }
+
+        /* Ocultar contenido según idioma */
+        .es, .it {
+            display: none;
+        }
+
+        [lang="es"] .es {
+            display: block;
+        }
+
+        [lang="it"] .it {
+            display: block;
+        }
+
+        /* Estilos para el control de música */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            background: var(--color-sobre);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de control de música -->
+    <div class="music-control" id="musicControl">🎵</div>
+    
+    <!-- Audio element -->
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/aitorroma/wedding-invitation/raw/refs/heads/main/song.mp3" type="audio/mp3">
+    </audio>
+
+    <div class="language-selector">
+        <button class="language-btn active" data-lang="es">ES</button>
+        <button class="language-btn" data-lang="it">IT</button>
+    </div>
+    <div class="envelope-container">
+        <div class="envelope">
+            <div class="front"></div>
+        </div>
+        <div class="click-hint">Haz clic para abrir la invitación <span class="hand">👆</span></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Cerrar invitación"></button>
+            
+            <div class="couple-image">
+                <video autoplay loop muted playsinline>
+                    <source src="https://github.com/aitorroma/wedding-invitation/raw/refs/heads/main/video.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- Contenido en Español -->
+            <div class="es">
+                <h1>Aitor & Alessia</h1>
+                <p class="main-text">Con gran alegría os invitamos a celebrar nuestra boda</p>
+                <p class="date">El próximo 21 de junio de 2025</p>
+                
+                <div class="section">
+                    <h3 data-icon="🕊">Ceremonia</h3>
+                    <p>11:00 h - Chiesa San Nicola di Bari</p>
+                    <p><a href="https://maps.google.com/?q=Chiesa+San+Nicola+di+Bari,+Via+Traversa,+57,+83013+Mercogliano+AV,+Italia" target="_blank">Via Traversa, 57, 83013 Mercogliano (AV)</a></p>
+                </div>
+                
+                <div class="section">
+                    <h3 data-icon="🥂">Celebración</h3>
+                    <p>Tenuta Oliva</p>
+                    <p><a href="https://maps.google.com/?q=Tenuta+Oliva,+Via+Pastenelle,+4,+84084+Fisciano+SA,+Italia" target="_blank">Via Pastenelle, 4, 84084 Fisciano (SA)</a></p>
+                </div>
+
+                <div class="rsvp">
+                    <div class="floral-decoration floral-top">
+                        <!-- ... SVG de decoración superior ... -->
+                    </div>
+                    <h3>Confirmar asistencia</h3>
+                    <typebot-standard style="height: 100vh; "></typebot-standard>
+                    <div class="floral-decoration floral-bottom">
+                        <!-- ... SVG de decoración inferior ... -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido en Italiano -->
+            <div class="it">
+                <h1>Aitor & Alessia</h1>
+                <p class="main-text">Con grande gioia vi invitiamo a celebrare il nostro matrimonio</p>
+                <p class="date">Il 21 giugno 2025</p>
+                
+                <div class="section">
+                    <h3 data-icon="🕊">Cerimonia</h3>
+                    <p>11:00 h - Chiesa San Nicola di Bari</p>
+                    <p><a href="https://maps.google.com/?q=Chiesa+San+Nicola+di+Bari,+Via+Traversa,+57,+83013+Mercogliano+AV,+Italia" target="_blank">Via Traversa, 57, 83013 Mercogliano (AV)</a></p>
+                </div>
+                
+                <div class="section">
+                    <h3 data-icon="🥂">Ricevimento</h3>
+                    <p>Tenuta Oliva</p>
+                    <p><a href="https://maps.google.com/?q=Tenuta+Oliva,+Via+Pastenelle,+4,+84084+Fisciano+SA,+Italia" target="_blank">Via Pastenelle, 4, 84084 Fisciano (SA)</a></p>
+                </div>
+
+                <div class="rsvp">
+                    <div class="floral-decoration floral-top">
+                        <!-- ... SVG de decoración superior ... -->
+                    </div>
+                    <h3>Conferma presenza</h3>
+                    <typebot-standard style="height: 100vh; "></typebot-standard>
+                    <div class="floral-decoration floral-bottom">
+                        <!-- ... SVG de decoración inferior ... -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.3.17/dist/web.js'
+        
+        Typebot.initStandard({
+            typebot: "invitacion",
+            apiHost: "https://n1mbot.cloud",
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const envelope = document.querySelector('.envelope-container');
+            const modal = document.querySelector('.modal');
+            const closeBtn = document.querySelector('.close-modal');
+            const languageButtons = document.querySelectorAll('.language-btn');
+            const html = document.documentElement;
+            const bgMusic = document.getElementById('bgMusic');
+            const musicControl = document.getElementById('musicControl');
+            let musicStarted = false;
+
+            // Función para cambiar el idioma
+            function changeLanguage(lang) {
+                html.setAttribute('lang', lang);
+                languageButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+            }
+
+            // Control de música
+            function toggleMusic() {
+                if (bgMusic.paused) {
+                    bgMusic.play();
+                    musicControl.classList.add('playing');
+                } else {
+                    bgMusic.pause();
+                    musicControl.classList.remove('playing');
+                }
+            }
+
+            musicControl.addEventListener('click', toggleMusic);
+
+            // Event listeners para los botones de idioma
+            languageButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    changeLanguage(btn.dataset.lang);
+                });
+            });
+
+            envelope.addEventListener('click', () => {
+                envelope.classList.add('open');
+                setTimeout(() => {
+                    modal.classList.add('open');
+                    // Iniciar música cuando se abre el sobre
+                    if (!musicStarted) {
+                        bgMusic.play().catch(error => {
+                            console.log('Reproducción automática bloqueada por el navegador');
+                        });
+                        musicStarted = true;
+                        musicControl.classList.add('playing');
+                    }
+                }, 600);
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('open');
+                setTimeout(() => {
+                    envelope.classList.remove('open');
+                }, 300);
+            });
+
+            // Detectar el idioma del navegador y establecer el idioma inicial
+            const browserLang = navigator.language.split('-')[0];
+            const initialLang = ['es', 'it'].includes(browserLang) ? browserLang : 'es';
+            changeLanguage(initialLang);
+        });
+    </script>
+</body>
+</html>
