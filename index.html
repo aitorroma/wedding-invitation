@@ -488,9 +488,57 @@
                 margin: 1.5em auto;
             }
         }
+
+        /* Estilos para el selector de idioma */
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .language-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1em;
+            color: var(--color-texto);
+            transition: all 0.3s ease;
+        }
+
+        .language-btn.active {
+            background: var(--color-sobre);
+            color: white;
+        }
+
+        /* Ocultar contenido según idioma */
+        .es, .it {
+            display: none;
+        }
+
+        [lang="es"] .es {
+            display: block;
+        }
+
+        [lang="it"] .it {
+            display: block;
+        }
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <button class="language-btn active" data-lang="es">ES</button>
+        <button class="language-btn" data-lang="it">IT</button>
+    </div>
     <div class="envelope-container">
         <div class="envelope">
             <div class="front"></div>
@@ -506,121 +554,78 @@
             <div class="couple-image">
                 <img src="https://aitorroma.github.io/notion/disney.png" alt="Aitor y Alessia">
             </div>
-            
-            <h1>Aitor & Alessia</h1>
-            <p class="main-text">Con gran alegría os invitamos a celebrar nuestra boda</p>
-            <p class="date">El próximo 21 de junio de 2025</p>
-            
-            <div class="section">
-                <h3 data-icon="🕊">Ceremonia</h3>
-                <p>11:00 h - Chiesa San Nicola di Bari</p>
-                <p><a href="https://maps.google.com/?q=Chiesa+San+Nicola+di+Bari,+Via+Traversa,+57,+83013+Mercogliano+AV,+Italia" target="_blank">Via Traversa, 57, 83013 Mercogliano (AV)</a></p>
-            </div>
-            
-            <div class="section">
-                <h3 data-icon="🥂">Celebración</h3>
-                <p>Tenuta Oliva</p>
-                <p><a href="https://maps.google.com/?q=Tenuta+Oliva,+Via+Pastenelle,+4,+84084+Fisciano+SA,+Italia" target="_blank">Via Pastenelle, 4, 84084 Fisciano (SA)</a></p>
-            </div>
-            
-            <div class="rsvp">
-                <div class="floral-decoration floral-top">
-                    <svg viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg">
-                        <g transform="translate(200, 40)">
-                            <!-- Rama izquierda -->
-                            <path class="branch-path" d="M-160,0 C-120,-20 -80,-20 -40,0">
-                                <animate attributeName="d" dur="6s" repeatCount="indefinite"
-                                    values="M-160,0 C-120,-20 -80,-20 -40,0;
-                                           M-160,0 C-120,-15 -80,-25 -40,0;
-                                           M-160,0 C-120,-20 -80,-20 -40,0"
-                                    calcMode="spline"
-                                    keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
-                            </path>
-                            <g class="leaf" transform="translate(-140, -15)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(-100, -18)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(-60, -12)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
 
-                            <!-- Rama derecha (espejo) -->
-                            <path class="branch-path" d="M40,0 C80,-20 120,-20 160,0">
-                                <animate attributeName="d" dur="6s" repeatCount="indefinite"
-                                    values="M40,0 C80,-20 120,-20 160,0;
-                                           M40,0 C80,-15 120,-25 160,0;
-                                           M40,0 C80,-20 120,-20 160,0"
-                                    calcMode="spline"
-                                    keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
-                            </path>
-                            <g class="leaf" transform="translate(60, -15)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(100, -18)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(140, -12)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                        </g>
-                    </svg>
+            <!-- Contenido en Español -->
+            <div class="es">
+                <h1>Aitor & Alessia</h1>
+                <p class="main-text">Con gran alegría os invitamos a celebrar nuestra boda</p>
+                <p class="date">El próximo 21 de junio de 2025</p>
+                
+                <div class="section">
+                    <h3 data-icon="🕊">Ceremonia</h3>
+                    <p>11:00 h - Chiesa San Nicola di Bari</p>
+                    <p><a href="https://maps.google.com/?q=Chiesa+San+Nicola+di+Bari,+Via+Traversa,+57,+83013+Mercogliano+AV,+Italia" target="_blank">Via Traversa, 57, 83013 Mercogliano (AV)</a></p>
                 </div>
-                <h3>Confirmar asistencia</h3>
-                <div class="rsvp-buttons">
-                    <!-- ✅ Confirmar que asistirán -->
-                    <a href="https://wa.me/34602092479?text=¡Hola%20Alessia!%20Confirmo%20que%20voy%20a%20la%20boda%20🎉.%20Seremos%20[escribe%20el%20número%20de%20personas]%20personas.%20%0A%0ATenemos%20estas%20intolerancias%20o%20preferencias%20alimentarias:%20[escribe%20aquí%20si%20hay%20veganos,%20celíacos,%20alérgicos,%20etc.]" target="_blank">
-                        Voy a asistir 🎉
-                    </a>
-
-                    <!-- ❌ Confirmar que NO asistirán -->
-                    <a href="https://wa.me/34602092479?text=¡Hola%20Alessia!%20Con%20mucha%20pena%20te%20escribo%20para%20decirte%20que%20no%20podré%20asistir%20a%20la%20boda.%20Os%20deseo%20un%20día%20increíble%20y%20todo%20lo%20mejor%20💛." target="_blank">
-                        No podré asistir 💛
-                    </a>
+                
+                <div class="section">
+                    <h3 data-icon="🥂">Celebración</h3>
+                    <p>Tenuta Oliva</p>
+                    <p><a href="https://maps.google.com/?q=Tenuta+Oliva,+Via+Pastenelle,+4,+84084+Fisciano+SA,+Italia" target="_blank">Via Pastenelle, 4, 84084 Fisciano (SA)</a></p>
                 </div>
-                <div class="floral-decoration floral-bottom">
-                    <svg viewBox="0 0 400 80" xmlns="http://www.w3.org/2000/svg">
-                        <g transform="translate(200, 40) rotate(180)">
-                            <!-- Rama izquierda -->
-                            <path class="branch-path" d="M-160,0 C-120,-20 -80,-20 -40,0">
-                                <animate attributeName="d" dur="6s" repeatCount="indefinite"
-                                    values="M-160,0 C-120,-20 -80,-20 -40,0;
-                                           M-160,0 C-120,-15 -80,-25 -40,0;
-                                           M-160,0 C-120,-20 -80,-20 -40,0"
-                                    calcMode="spline"
-                                    keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
-                            </path>
-                            <g class="leaf" transform="translate(-140, -15)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(-100, -18)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(-60, -12)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
 
-                            <!-- Rama derecha (espejo) -->
-                            <path class="branch-path" d="M40,0 C80,-20 120,-20 160,0">
-                                <animate attributeName="d" dur="6s" repeatCount="indefinite"
-                                    values="M40,0 C80,-20 120,-20 160,0;
-                                           M40,0 C80,-15 120,-25 160,0;
-                                           M40,0 C80,-20 120,-20 160,0"
-                                    calcMode="spline"
-                                    keySplines="0.4 0 0.6 1; 0.4 0 0.6 1"/>
-                            </path>
-                            <g class="leaf" transform="translate(60, -15)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(100, -18)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                            <g class="leaf" transform="translate(140, -12)">
-                                <path d="M0,0 C2,-4 8,-4 10,0 C8,4 2,4 0,0 Z"/>
-                            </g>
-                        </g>
-                    </svg>
+                <div class="rsvp">
+                    <div class="floral-decoration floral-top">
+                        <!-- ... SVG de decoración superior ... -->
+                    </div>
+                    <h3>Confirmar asistencia</h3>
+                    <div class="rsvp-buttons">
+                        <a href="https://wa.me/34602092479?text=¡Hola%20Alessia!%20Confirmo%20que%20voy%20a%20la%20boda%20🎉.%20Seremos%20[escribe%20el%20número%20de%20personas]%20personas.%20%0A%0ATenemos%20estas%20intolerancias%20o%20preferencias%20alimentarias:%20[escribe%20aquí%20si%20hay%20veganos,%20celíacos,%20alérgicos,%20etc.]" target="_blank">
+                            Voy a asistir 🎉
+                        </a>
+                        <a href="https://wa.me/34602092479?text=¡Hola%20Alessia!%20Con%20mucha%20pena%20te%20escribo%20para%20decirte%20que%20no%20podré%20asistir%20a%20la%20boda.%20Os%20deseo%20un%20día%20increíble%20y%20todo%20lo%20mejor%20💛." target="_blank">
+                            No podré asistir 💛
+                        </a>
+                    </div>
+                    <div class="floral-decoration floral-bottom">
+                        <!-- ... SVG de decoración inferior ... -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido en Italiano -->
+            <div class="it">
+                <h1>Aitor & Alessia</h1>
+                <p class="main-text">Con grande gioia vi invitiamo a celebrare il nostro matrimonio</p>
+                <p class="date">Il 21 giugno 2025</p>
+                
+                <div class="section">
+                    <h3 data-icon="🕊">Cerimonia</h3>
+                    <p>11:00 h - Chiesa San Nicola di Bari</p>
+                    <p><a href="https://maps.google.com/?q=Chiesa+San+Nicola+di+Bari,+Via+Traversa,+57,+83013+Mercogliano+AV,+Italia" target="_blank">Via Traversa, 57, 83013 Mercogliano (AV)</a></p>
+                </div>
+                
+                <div class="section">
+                    <h3 data-icon="🥂">Ricevimento</h3>
+                    <p>Tenuta Oliva</p>
+                    <p><a href="https://maps.google.com/?q=Tenuta+Oliva,+Via+Pastenelle,+4,+84084+Fisciano+SA,+Italia" target="_blank">Via Pastenelle, 4, 84084 Fisciano (SA)</a></p>
+                </div>
+
+                <div class="rsvp">
+                    <div class="floral-decoration floral-top">
+                        <!-- ... SVG de decoración superior ... -->
+                    </div>
+                    <h3>Conferma presenza</h3>
+                    <div class="rsvp-buttons">
+                        <a href="https://wa.me/34602092479?text=Ciao%20Alessia!%20Confermo%20che%20parteciperò%20al%20matrimonio%20🎉.%20Saremo%20[scrivi%20il%20numero%20di%20persone]%20persone.%20%0A%0AAbbiamo%20queste%20intolleranze%20o%20preferenze%20alimentari:%20[scrivi%20qui%20se%20ci%20sono%20vegani,%20celiaci,%20allergici,%20ecc.]" target="_blank">
+                            Parteciperò 🎉
+                        </a>
+                        <a href="https://wa.me/34602092479?text=Ciao%20Alessia!%20Mi%20dispiace%20molto%20ma%20non%20potrò%20partecipare%20al%20matrimonio.%20Vi%20auguro%20una%20giornata%20meravigliosa%20e%20tutto%20il%20meglio%20💛." target="_blank">
+                            Non potrò partecipare 💛
+                        </a>
+                    </div>
+                    <div class="floral-decoration floral-bottom">
+                        <!-- ... SVG de decoración inferior ... -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -630,35 +635,43 @@
         document.addEventListener('DOMContentLoaded', () => {
             const envelope = document.querySelector('.envelope-container');
             const modal = document.querySelector('.modal');
-            const closeButton = document.querySelector('.close-modal');
-            const clickHint = document.querySelector('.click-hint');
-            
-            // Mostrar la indicación después de un momento
-            setTimeout(() => {
-                clickHint.classList.add('visible');
-            }, 1500);
+            const closeBtn = document.querySelector('.close-modal');
+            const languageButtons = document.querySelectorAll('.language-btn');
+            const html = document.documentElement;
+
+            // Función para cambiar el idioma
+            function changeLanguage(lang) {
+                html.setAttribute('lang', lang);
+                languageButtons.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === lang);
+                });
+            }
+
+            // Event listeners para los botones de idioma
+            languageButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    changeLanguage(btn.dataset.lang);
+                });
+            });
 
             envelope.addEventListener('click', () => {
-                if (!envelope.classList.contains('open')) {
-                    envelope.classList.add('open');
-                    clickHint.classList.remove('visible');
-                    setTimeout(() => {
-                        modal.classList.add('open');
-                    }, 600);
-                }
+                envelope.classList.add('open');
+                setTimeout(() => {
+                    modal.classList.add('open');
+                }, 600);
             });
 
-            closeButton.addEventListener('click', () => {
+            closeBtn.addEventListener('click', () => {
                 modal.classList.remove('open');
-                envelope.classList.remove('open');
+                setTimeout(() => {
+                    envelope.classList.remove('open');
+                }, 300);
             });
 
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.classList.remove('open');
-                    envelope.classList.remove('open');
-                }
-            });
+            // Detectar el idioma del navegador y establecer el idioma inicial
+            const browserLang = navigator.language.split('-')[0];
+            const initialLang = ['es', 'it'].includes(browserLang) ? browserLang : 'es';
+            changeLanguage(initialLang);
         });
     </script>
 </body>
